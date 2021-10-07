@@ -1,0 +1,78 @@
+#2 hr 5 min code time + 
+
+
+# Set state to true
+state = True
+var=0
+counter = 0
+#define Checking function
+def check(inp):
+    global state 
+    while state == True:
+        if len(inp) != len(set(inp)):
+            return False
+        else:
+            return True
+
+def convertsl(string):
+    return (list(string))
+
+def convertls(list):
+    return(''.join(list))
+
+# input string. in time make it reject letters
+sudoku = input("\n\nPlease input sudoku, rows deliminated by spaces\n>> ")
+test= sudoku.replace(" ","")
+counter +=1
+
+#forcing correct input
+while test.isnumeric() != 1 or len(test) != 81:
+    counter +=1
+    print("This is try number",counter)
+    sudoku = input("\n\nPlease input sudoku, rows deliminated by spaces\n>> ")
+    sudoku_row = sudoku.split()
+    test= sudoku.replace(" ","") 
+
+# Sort into lists,
+sudoku_row = sudoku.split()
+
+# Checking that each row is not repeating. If repeat, set to false and terminate code.
+counter = 0 
+for row in sudoku_row:
+    state = check(row)
+    counter += 1 
+    if state == False:
+        print ("This Suduko is broken in row",counter)
+
+# Create list of list, and append each to a list, creating a list of lists (lol)
+lol =  []
+for row in sudoku_row:
+    counter += 1
+    lol.append(convertsl(row))
+# Checking that each column is not repeating. If repeat, set to false and terminate code.
+counter = 0
+for i in range(9):
+    column = []
+    for j in range (9):
+        column.append(lol[j][i])
+    state = check(convertls(column))
+    counter += 1
+    if state == False:
+       print ("\nThis Suduko is broken in column", counter) 
+
+# Checking the blocks, creating the blocks row by row.
+counter = 0 
+for i in range(0,9,3):
+    for j in range (0,9,3):
+        block = []
+        for e in range (i,i+3):
+            for f in range(j,j+3):
+                block.append(lol[e][f])
+        state = check(convertls(block))
+        counter += 1
+        if state == False:
+            print("\nThis Sudoku is broken in block", counter)
+
+if state == True:
+    print("\nThis Sudoku works")
+print ("\nEnd of code\n\n")
