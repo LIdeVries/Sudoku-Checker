@@ -1,3 +1,3 @@
-# Sudoku-Checker
+# Sudoku-checker
 Project that checks if a Sudoku is correctly solved.
 If an error is encountered, the program highlights where.
